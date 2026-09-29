@@ -2,6 +2,8 @@ const router =  require('express').Router();
 const User = require('./../models/user')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs');
+
+//it create  a endpoints in this file that controllers the authorization and authentication like signup and logedIn
 router.post('/signup',async (req,res)=>{
      try{
         //if the user already exits
