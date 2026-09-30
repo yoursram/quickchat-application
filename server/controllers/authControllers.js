@@ -11,7 +11,7 @@ router.post('/signup',async (req,res)=>{
 
         //if user exits send the error message
         if (user){
-            return res.send({
+            return res.status(400).send({
             message:'user Already exist',
             success:false
             })
@@ -25,7 +25,7 @@ router.post('/signup',async (req,res)=>{
         const newUser = new User(req.body);
         await newUser.save();
 
-        res.send({
+        res.status(201).send({
             message : 'User Successfully created',
             success : true
         });
@@ -46,7 +46,7 @@ router.post('/login',async(req,res) =>{
         //1. check if user exits
         const user  = await User.findOne({email : req.body.email});
         if(!user){
-            return  res.send({
+            return  res.status(400).send({
                 message : 'User does not exist',
                 success:false
             })
@@ -56,7 +56,7 @@ router.post('/login',async(req,res) =>{
         //2.check if the password is correct
         const isvalid  = await bcrypt.compare(req.body.password,user.password);
         if(!isvalid){
-            return res.send({
+            return res.status(400).send({
                 message : 'Password doesnt match!',
                 success : false
             })
